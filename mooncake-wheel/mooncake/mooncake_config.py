@@ -194,6 +194,13 @@ class MooncakeConfig:
             endpoints. Default is False.
         client_http_port (int): Port for the client HTTP endpoints.
             Defaults to 9300.
+        etcd_ca_file (str): Path to etcd CA certificate file (TLS). Default "".
+        etcd_cert_file (str): Path to etcd client certificate file (TLS). Default "".
+        etcd_key_file (str): Path to etcd client key file (TLS). Default "".
+
+        TLS can also be configured via environment variables:
+          MC_ETCD_CA_FILE, MC_ETCD_CERT_FILE, MC_ETCD_KEY_FILE
+
 
     Example of configuration file:
         {
@@ -225,6 +232,20 @@ class MooncakeConfig:
             "tenant_id": "default",
             "enable_client_http_server": false,
             "client_http_port": 9300
+        }
+
+        With etcd TLS:
+        {
+            "local_hostname": "node1",
+            "metadata_server": "etcd://192.168.1.1:2379",
+            "global_segment_size": 3355443200,
+            "local_buffer_size": 1073741824,
+            "protocol": "tcp",
+            "device_name": "",
+            "master_server_address": "master:8081",
+            "etcd_ca_file": "/etc/etcd/ca.pem",
+            "etcd_cert_file": "/etc/etcd/client.pem",
+            "etcd_key_file": "/etc/etcd/client-key.pem"
         }
     """
 
@@ -290,6 +311,9 @@ class MooncakeConfig:
                     f"Config field {field_name!r} must be a non-empty string, "
                     f"got {value!r}."
                 )
+    etcd_ca_file: str = ""
+    etcd_cert_file: str = ""
+    etcd_key_file: str = ""
 
     @staticmethod
     def from_file(file_path: str) -> "MooncakeConfig":
@@ -319,6 +343,7 @@ class MooncakeConfig:
             device_name=config.get("device_name", ""),
             master_server_address=config.get("master_server_address"),
             enable_ssd_offload=_parse_bool(config.get("enable_ssd_offload", False)),
+
             ssd_offload_path=str(ssd_offload_path)
             if ssd_offload_path is not None
             else "",
@@ -327,6 +352,12 @@ class MooncakeConfig:
                 config.get("enable_client_http_server", False)
             ),
             client_http_port=int(config.get("client_http_port", 9300)),
+
+            ssd_offload_path=str(config.get("ssd_offload_path", "")),
+            etcd_ca_file=str(config.get("etcd_ca_file", "")),
+            etcd_cert_file=str(config.get("etcd_cert_file", "")),
+            etcd_key_file=str(config.get("etcd_key_file", "")),
+
         )
 
     @staticmethod
