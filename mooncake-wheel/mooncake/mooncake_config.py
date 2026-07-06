@@ -399,5 +399,8 @@ class MooncakeConfig:
                     os.getenv("MOONCAKE_ENABLE_CLIENT_HTTP_SERVER", "false")
                 ),
                 client_http_port=int(os.getenv("MOONCAKE_CLIENT_HTTP_PORT", 9300)),
+                etcd_ca_file=os.getenv("MC_ETCD_CA_FILE", ""),
+                etcd_cert_file=os.getenv("MC_ETCD_CERT_FILE", ""),
+                etcd_key_file=os.getenv("MC_ETCD_KEY_FILE", ""),
             )
         return MooncakeConfig.from_file(config_file_path)
