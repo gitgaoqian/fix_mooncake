@@ -1,4 +1,14 @@
 .cache
+mooncake-wheel/mooncake/mooncake_client
+build_2204_cuda12/
+build_2404_cuda12/
+build_2404_cuda13/
+docs/source/deployment/mooncake_tls.md
+docs/source/getting_started/examples/
+mooncake-wheel/dist-2204-cuda12/
+mooncake-wheel/mooncake/async_store.py
+mooncake-wheel/mooncake/fabric_allocator_utils.py
+test_env/
 .vscode
 build
 build_ofed4
