@@ -356,8 +356,6 @@ class MooncakeConfig:
             etcd_ca_file=str(config.get("etcd_ca_file", "")),
             etcd_cert_file=str(config.get("etcd_cert_file", "")),
             etcd_key_file=str(config.get("etcd_key_file", "")),
-
-            tenant_id=str(tenant_id) if tenant_id is not None else "default",
         )
 
     @staticmethod
